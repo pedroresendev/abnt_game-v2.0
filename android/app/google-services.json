@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "671249252042",
+    "project_id": "abnt-play",
+    "storage_bucket": "abnt-play.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:671249252042:android:74392653ab9dd305ab3e33",
+        "android_client_info": {
+          "package_name": "com.example.abntplaybic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "671249252042-2u28atac6iq2c46cbfja7q24a4edkcka.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBNqZSLxQc0g0qmPoJLEjIXp_Wc5lLO64"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "671249252042-2u28atac6iq2c46cbfja7q24a4edkcka.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "671249252042-jro6g5sg0vhgp6gvo3bcjqo9jf73imtl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.abntplaybic"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
