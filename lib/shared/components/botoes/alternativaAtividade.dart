@@ -22,10 +22,10 @@ class AlternativaAtividade extends StatelessWidget {
         var result = context
             .read<AtividadeController>()
             .atividadeAtual!
-            .checkCorrect(alternativa); // Retorna true se a alternativa for correta
+            .checkCorrect(alternativa); // Retorna true se a resposta estiver correta.
 
         if (result) {
-          controller.addAcerto(); // Adiciona um acerto ao controller
+          controller.addAcerto(); // Adicona mais um acerto na contagem
         }
         await showModalBottomSheet(
             enableDrag: false,
@@ -51,16 +51,25 @@ class AlternativaAtividade extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 25, horizontal: 10),
                             child: Column(
-                              mainAxisSize: MainAxisSize.min, 
-                              children: [ // Caixa de texto ao marcar uma alternativa
-                                Text(
-                                  result
-                                      ? "Resposta correta!" 
-                                      : "Resposta incorreta...",
-                                  style: TextStyle(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                                  Text(
+                                    result ? "Resposta correta!" : "Resposta incorreta...",
+                                    style: TextStyle(
                                       fontFamily: "PassionOne",
                                       fontSize: 40,
-                                      color: result ? verde : vermelho),
+                                      color: result ? verde : vermelho,
+                                    ),
+                                  ),
+                              Column(
+                                children: [
+                                Text(
+                                  result ? "Parabéns!!!" : "Resposta correta: ${controller.atividadeAtual!.returnCorrect().value}",
+                                  style: TextStyle(
+                                    fontFamily: "PassionOne",
+                                    fontSize: 20,
+                                    color: Colors.green,
+                                  ),
                                 ),
                                 TextButton(
                                     style: TextButton.styleFrom(
@@ -68,7 +77,7 @@ class AlternativaAtividade extends StatelessWidget {
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(13)),
-                                      fixedSize: Size(size.width * 0.65, 62),
+                                      fixedSize: Size(size.width * 0.75, 69),
                                     ),
                                     onPressed: () {
                                       Navigator.pop(context);
@@ -129,8 +138,10 @@ class AlternativaAtividade extends StatelessWidget {
                                     ))
                               ],
                             ),
-                          )),
-                ));
+                          ],
+                          ),
+                          ),
+                )));
       },
       child: Container(
           decoration: BoxDecoration(

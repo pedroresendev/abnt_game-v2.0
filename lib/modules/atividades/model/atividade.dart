@@ -17,6 +17,10 @@ class Atividade {
     }
   }
 
+  returnCorrect() {
+    return _alternativas.firstWhere((element) => element._id == _resposta);
+  }
+
   Atividade.fromFirestore(Map data, String topico, String subtopico)
       : this(
             data["id"],
