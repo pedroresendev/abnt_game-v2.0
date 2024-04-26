@@ -45,7 +45,7 @@ class _CadastroPageState extends State<CadastroPage> {
                       constraints: const BoxConstraints(maxWidth: 200),
                       width: size.width * 0.5,
                       child: Image.asset(
-                        "src/images/coruja_login.png",
+                        "src/images/coruja_prof.png",
                       ),
                     ),
                     const Text(

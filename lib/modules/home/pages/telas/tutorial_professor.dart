@@ -32,7 +32,7 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
                   style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
                 ),
                 Image.asset(
-                  "src/images/coruja_login.png",
+                  "src/images/coruja.png",
                   width: size.width * .40,
                 ),
               ],

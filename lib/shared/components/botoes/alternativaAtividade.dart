@@ -22,10 +22,10 @@ class AlternativaAtividade extends StatelessWidget {
         var result = context
             .read<AtividadeController>()
             .atividadeAtual!
-            .checkCorrect(alternativa);
+            .checkCorrect(alternativa); // Retorna true se a alternativa for correta
 
         if (result) {
-          controller.addAcerto();
+          controller.addAcerto(); // Adiciona um acerto ao controller
         }
         await showModalBottomSheet(
             enableDrag: false,
@@ -51,11 +51,11 @@ class AlternativaAtividade extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 25, horizontal: 10),
                             child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
+                              mainAxisSize: MainAxisSize.min, 
+                              children: [ // Caixa de texto ao marcar uma alternativa
                                 Text(
                                   result
-                                      ? "Resposta correta!"
+                                      ? "Resposta correta!" 
                                       : "Resposta incorreta...",
                                   style: TextStyle(
                                       fontFamily: "PassionOne",
