@@ -1,6 +1,6 @@
 # ABNT Play
 
-Projeto desenvolvido por Guilherme Alvarenga de Azevedo e Pedro Ferreira Manoel, alunos concluintes da EPTNM do CEFET-MG Campus Divinópolis, no período de 09/2022-09/2023. 
+Projeto desenvolvido por Guilherme Alvarenga de Azevedo e Pedro Ferreira Manoel, alunos concluintes da EPTNM do CEFET-MG Campus Divinópolis, no período de 09/2022-09/2023. Atualizado por Pedro Henrique Resende dos Santos, aluno atual da EPTNM do CEFET-MG Campus Divinópolis, no período de 02/2024-02/2025.
 
 ## Sobre
 O ABNT Play é um jogo no estilo de perguntas e respostas que tem como principal ideia ajudar no ensino das NBRs da ABNT sobre trabalhos acadêmicos, sem excluir o professor no processo de aprendizagem.
