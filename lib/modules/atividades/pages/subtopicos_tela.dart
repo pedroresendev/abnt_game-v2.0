@@ -99,15 +99,15 @@ class _SubTopicosPageState extends State<SubTopicosPage>
                 children: [
                   Expanded(
                     flex: 8,
-                    child: PageView.builder( // PageView para passar entre os conteúdos
+                    child: PageView.builder(
                         controller: _pageController,
-                        onPageChanged: (int page) { // Quando a página muda, muda o índice do TabController
+                        onPageChanged: (int page) {
                           setState(() {
                             selectedIndex = page;
                             _tabController!.index = page;
                           });
                         },
-                        itemCount: listaTemas.length, // O número de conteúdos deve ser igual ao número de temas
+                        itemCount: listaTemas.length,
                         itemBuilder: (context, index) {
                           return Column(
                             children: [
@@ -121,10 +121,11 @@ class _SubTopicosPageState extends State<SubTopicosPage>
                                   listaTemas
                                       .elementAt(index)
                                       .titulo
-                                      .toUpperCase(), // Título do tema
+                                      .toUpperCase(),
                                   style: const TextStyle(
                                       fontFamily: "PassionOne",
                                       fontSize: 36,
+                                      fontWeight: FontWeight.bold,
                                       color: preto),
                                   textAlign: TextAlign.center,
                                 ),
@@ -135,10 +136,11 @@ class _SubTopicosPageState extends State<SubTopicosPage>
                                           .elementAt(index)
                                           .conteudo
                                           .toString()
-                                          .startsWith("gs:") // "gs" é o iníco do caminho da imagem no Firebase Storage
+                                          .startsWith("gs:")
                                       ? FutureBuilder<String>(
                                           future: images[index],
                                           builder: (context, snap) {
+                                            print(snap.data);
                                             if (snap.hasData) {
                                               return Container(
                                                   constraints:
@@ -174,10 +176,10 @@ class _SubTopicosPageState extends State<SubTopicosPage>
                                                 listaTemas
                                                     .elementAt(index)
                                                     .conteudo
-                                                    .replaceAll("\\n", "\n"), // Conteúdo do tema
+                                                    .replaceAll("\\n", "\n"),
                                                 style: const TextStyle(
                                                     fontFamily: "PassionOne",
-                                                    fontSize: 5),
+                                                    fontSize: 35),
                                               ),
                                             ],
                                           ),
@@ -185,7 +187,7 @@ class _SubTopicosPageState extends State<SubTopicosPage>
                                   descricao: listaTemas
                                       .elementAt(index)
                                       .descricao
-                                      .replaceAll("\\n", "\n"), // Descrição do tema
+                                      .replaceAll("\\n", "\n"),
                                 ),
                               ),
                             ],
@@ -272,37 +274,70 @@ class _SubTopicosPageState extends State<SubTopicosPage>
                           ),
                         ),
                         Expanded(
-                        flex: 1,
-                        child: IconButton(
-                          onPressed: selectedIndex + 1 < _tabController!.length
-                              ? () {
-                                  _pageController.animateToPage(selectedIndex + 1,
-                                      duration: const Duration(milliseconds: 500),
-                                      curve: Curves.ease);
-                                  setState(() {
-                                    _tabController!.index = selectedIndex;
-                                  });
-                                }
-                              : () {
-                                  // Redireciona para a página de atividades
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => FinalLicaoPage(
+                          flex: 1,
+                          child: IconButton(
+                            onPressed: () {
+                              if (selectedIndex + 1 < _tabController!.length) {
+                                _pageController.animateToPage(selectedIndex + 1,
+                                    duration: const Duration(milliseconds: 500),
+                                    curve: Curves.ease);
+                                setState(() {
+                                  _tabController!.index = selectedIndex;
+                                });
+                              } else {
+                                var perfil =
+                                    context.read<PerfilProvider>().perfilAtual;
+                                var ganhaXP = true;
+                                if (perfil is PerfilAluno) {
+                                  perfil.marcaAula(
+                                      widget.topicoAtual["idTopico"],
+                                      widget.topicoAtual["id"]);
+                                  bool aulaFeita = perfil.feitos?[widget
+                                                  .topicoAtual["idTopico"]]
+                                              ?[widget.topicoAtual["id"]]
+                                          ?["aula"] ??
+                                      false;
+                                  if (aulaFeita) {
+                                    ganhaXP = false;
+                                  }
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (context) => ganhaXP
+                                              ? GanhaXP(
+                                                  xpGanho: 5,
+                                                  porCompletar:
+                                                      "mais uma aula!",
+                                                  nextRoute: MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          FinalLicaoPage(
+                                                              widget.topicoAtual[
+                                                                  "idTopico"],
+                                                              widget.topicoAtual[
+                                                                  "id"])),
+                                                )
+                                              : FinalLicaoPage(
+                                                  widget
+                                                      .topicoAtual["idTopico"],
+                                                  widget.topicoAtual["id"])));
+                                } else {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => FinalLicaoPage(
                                               widget.topicoAtual["idTopico"],
-                                              widget.topicoAtual["id"]))
-                                  );
-                                },
-                          icon: Icon(
-                            selectedIndex + 1 < _tabController!.length
-                                ? Icons.chevron_right
-                                : Icons.assignment, // Ícone para a página de atividades
-                            size: chevronSize,
-                            color: primary,
+                                              widget.topicoAtual["id"])));
+                                }
+                              }
+                            },
+                            icon: Icon(
+                              selectedIndex + 1 < _tabController!.length ? Icons.chevron_right : Icons.check,
+                              size: chevronSize,
+                              color: primary,
+                            ),
+                            splashColor: selectedIndex + 1 < _tabController!.length ? null : Colors.transparent,
+                            highlightColor: selectedIndex + 1 < _tabController!.length ? null : Colors.transparent,
                           ),
-                          splashColor: null,
-                          highlightColor: null,
                         ),
-                      ),
                       ],
                     ),
                   ),
