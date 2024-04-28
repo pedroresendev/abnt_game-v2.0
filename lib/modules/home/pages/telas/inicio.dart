@@ -1,5 +1,4 @@
 import 'package:abntplaybic/modules/home/controllers/topicosController.dart';
-import 'package:abntplaybic/modules/home/pages/telas/tutorial_professor.dart';
 import 'package:abntplaybic/modules/perfil/controller/perfilProvider.dart';
 import 'package:abntplaybic/modules/perfil/models/perfilAluno.dart';
 import 'package:abntplaybic/shared/colors.dart';
@@ -72,15 +71,6 @@ class _InicioPageState extends State<InicioPage> {
             icon: Icon(Icons.info_outline, color: primary, size: 35,)
           ),
           actions: [
-              IconButton(
-              icon: Icon(Icons.help, color: Colors.green, size: 20,), // Ícone do botão
-              onPressed: () {
-                 Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => TutorialProfessorPage())); // Navega para a página de informações.
-              },
-            ),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Align(
