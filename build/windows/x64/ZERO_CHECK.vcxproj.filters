@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\user\Desktop\PIBAS\abnt_game-main\build\windows\x64\CMakeFiles\5b9b9aac6cddd69e970ba254716b579f\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{C4575828-AD57-328B-AE55-B2F9E4BEA76B}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
