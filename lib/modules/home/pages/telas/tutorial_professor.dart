@@ -54,11 +54,12 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
                 ),
                 Padding(padding: EdgeInsets.all(10)),
                 Text(
-                'PASSO 2: Você será redirecionado para a aba de criação de turmas. Aperte em “Criar nova turma”!',
+                'PASSO 2: Você será redirecionado para a aba de criação de turmas. Aperte em “Criar nova turma”!'
+                'Essa aba está apenas como teste de fonte para o VERCEL',
                 style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
                 ),
                 Image.asset(
-                  "src/images/btn_nova_turma.png",
+                  "src/images/tela_inicial.png",
                   width: size.width * .50,
                 ),
               ],
