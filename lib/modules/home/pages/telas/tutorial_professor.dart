@@ -44,7 +44,7 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  '''PASSO 1: Clique no ícone de tabela localizado na parte inferior da tela.''',
+                  '''PASSO 1: Clique no ícone de tabela localizado na parte de baixo da tela.''',
                   style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
                 ),
                 Padding(padding: EdgeInsets.all(10)),
