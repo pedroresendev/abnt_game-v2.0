@@ -58,7 +58,7 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
                 style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
                 ),
                 Image.asset(
-                  "src/images/btn_nova_turma.png",
+                  "src/images/btn_nova_turma.PNG",
                   width: size.width * .50,
                 ),
               ],
@@ -74,7 +74,7 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
                   ),
                   Padding(padding: EdgeInsets.all(1)),
                   Image.asset(
-                    "src/images/criando_turma.png",
+                    "src/images/criando_turma.PNG",
                     width: size.width * .40,
                   ),
                 ],
@@ -100,7 +100,7 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
             ),
             Padding(padding: EdgeInsets.all(15)),
             Image.asset(
-              "src/images/ver_turma.png",
+              "src/images/ver_turma.PNG",
               width: size.width * .40,
               height: size.height * .40,
             ),
@@ -133,7 +133,7 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
                 ),
             Padding(padding: EdgeInsets.all(25)),
             Image.asset(
-              "src/images/ranking_alunos.png",
+              "src/images/ranking_alunos.PNG",
               width: size.width * .50,
               height: size.height * .40,
             ),
