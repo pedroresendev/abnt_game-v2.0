@@ -27,9 +27,12 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(
-                  '''Seja bem vindo professor! Agora, você poderá criar as suas turmas virtuais. Te ensinarei como fazer isso!''',
-                  style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
+                Container(
+                padding: EdgeInsets.all(20),
+                  child: Text(
+                    'Seja bem vindo professor! Agora, você poderá criar as suas turmas virtuais e compartilhar com os seus alunos. Te ensinarei como fazer isso passo a passo!',
+                    style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
+                  ),
                 ),
                 Container(
                   margin: EdgeInsets.zero,
@@ -50,7 +53,7 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
-                padding: EdgeInsets.all(10), 
+                padding: EdgeInsets.all(20), 
                  child: Text(
                     '''PASSO 1: Clique no ícone de tabela localizado na parte de baixo da tela.''',
                     style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
@@ -61,10 +64,12 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
                   "src/images/tela_inicial.png",
                   width: size.width * .50,
                 ),
-                Padding(padding: EdgeInsets.all(10)),
-                Text(
-                'PASSO 2: Você será redirecionado para a aba de criação de turmas. Aperte em “Criar nova turma”!',
-                style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
+                Container(
+                  padding: EdgeInsets.all(20),
+                  child: Text(
+                    'Ao clicar, você será redirecionado para a aba de turmas. Aperte em "Criar nova Turma"!',
+                    style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
+                  ),
                 ),
                 Image.asset(
                   "src/images/btn_nova_turma.PNG",
@@ -96,11 +101,14 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-              Text(
-              'Clique no ícone de tabela localizado na parte inferior da tela novamente.',
-              style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
-            ),
-            Padding(padding: EdgeInsets.all(15)),
+              Container(
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  'Clique no ícone de tabela localizado na parte inferior da tela novamente.',
+                  style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
+                ),
+              ),
+            Padding(padding: EdgeInsets.all(10)),
             Image.asset(
               "src/images/tela_inicial.png",
               width: size.width * .50,
@@ -110,16 +118,12 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
               'Agora, a turma que você criou aparecerá. Clique nela!',
               style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
             ),
-            Padding(padding: EdgeInsets.all(15)),
+            Padding(padding: EdgeInsets.all(10)),
             Image.asset(
               "src/images/ver_turma.PNG",
               width: size.width * .40,
               height: size.height * .40,
             ),
-            Text(
-              'Nesse caso, vamos entrar na turma "Turma Joia"',
-              style: TextStyle(fontFamily: "BebasNeue", color: preto, fontSize: 10),
-            )
             ],
           ),
           ),
@@ -128,7 +132,7 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.all(10), // Adicione o valor do padding que você deseja aqui
+              padding: EdgeInsets.all(20), // Adicione o valor do padding que você deseja aqui
               child: RichText(
                 text: TextSpan(
                   style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
@@ -153,9 +157,12 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
             height: size.height * .40,
             ),
             Padding(padding: EdgeInsets.all(20)),
-            Text(
-              ' Pronto! Agora você já pode criar e acessar as suas turmas virtuais!!!',
-              style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
+            Container(
+              padding: EdgeInsets.all(20),
+              child: Text(
+                ' Pronto! Agora você já pode criar e acessar as suas turmas virtuais!!!',
+                style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
+              ),
             ),
               TextButton(
                     child: Text('IR PARA A PÁGINA INICIAL'),
