@@ -156,14 +156,7 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
             width: size.width * .50,
             height: size.height * .40,
             ),
-            Padding(padding: EdgeInsets.all(20)),
-            Container(
-              padding: EdgeInsets.all(20),
-              child: Text(
-                ' Pronto! Agora você já pode criar e acessar as suas turmas virtuais!!!',
-                style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
-              ),
-            ),
+            Padding(padding: EdgeInsets.all(10)),
               TextButton(
                     child: Text('IR PARA A PÁGINA INICIAL'),
                     onPressed: () {
