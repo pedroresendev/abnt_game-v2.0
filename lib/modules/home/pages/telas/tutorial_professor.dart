@@ -28,12 +28,18 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  '''Seja bem vindo professor! Agora, você poderá criar as suas turmas virtuais. Te ensinaremos como fazer isso!''',
+                  '''Seja bem vindo professor! Agora, você poderá criar as suas turmas virtuais. Te ensinarei como fazer isso!''',
                   style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
                 ),
-                Image.asset(
-                  "src/images/coruja.png",
-                  width: size.width * .40,
+                Container(
+                  margin: EdgeInsets.zero,
+                  padding: EdgeInsets.zero,
+                  child: Image.asset(
+                    "src/images/coruja.png",
+                    width: 250, // Define a largura da imagem
+                    height: 250, 
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ],
             ),
@@ -43,11 +49,14 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(
-                  '''PASSO 1: Clique no ícone de tabela localizado na parte de baixo da tela.''',
-                  style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
+                Container(
+                padding: EdgeInsets.all(10), 
+                 child: Text(
+                    '''PASSO 1: Clique no ícone de tabela localizado na parte de baixo da tela.''',
+                    style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
+                  ),
                 ),
-                Padding(padding: EdgeInsets.all(10)),
+                Padding(padding: EdgeInsets.all(1)),
                 Image.asset(
                   "src/images/tela_inicial.png",
                   width: size.width * .50,
@@ -68,18 +77,21 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                  Text(
-                    'PASSO 3: Ao clicar, você será redirecionado para uma nova sessão. Nela, será possível colocar o nome da sua turma e tambémtodos os conteúdos que queria deixar disponível.',
+                Container(
+                  padding: EdgeInsets.all(20),
+                  child: Text(
+                    'PASSO 3: Ao clicar, você será redirecionado para uma nova sessão. Nela, será possível colocar o nome da sua turma e também todos os conteúdos que queria deixar disponível.',
                     style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
                   ),
-                  Padding(padding: EdgeInsets.all(1)),
-                  Image.asset(
-                    "src/images/criando_turma.PNG",
-                    width: size.width * .40,
-                  ),
-                ],
                 ),
-              ),
+                Image.asset(
+                  "src/images/criando_turma.PNG",
+                  width: size.width * .50,
+                  height: size.height * .40,
+                ),
+              ],
+            ),
+          ),
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -111,31 +123,34 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
             ],
           ),
           ),
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                RichText(
-                  text: TextSpan(
-                    style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: 'Agora, você será redirecionado para a aba da turma. Nela, você poderá ver todos os conteúdos que disponibilizou para os alunos.',
-                      ),
-                      TextSpan(
-                        text: '\n\n', // Adiciona uma linha em branco entre os parágrafos
-                      ),
-                      TextSpan(
-                        text: 'Um ranking de alunos é disponibilizado, mostrando os alunos que mais pontuaram na turma. A pontuação aumenta com o número de acertos nas atividades!',
-                      ),
-                    ],
-                  ),
+      Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(10), // Adicione o valor do padding que você deseja aqui
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'Agora, você será redirecionado para a aba da turma.',
+                    ),
+                    TextSpan(
+                      text: '\n\n', // Adiciona uma linha em branco entre os parágrafos
+                    ),
+                    TextSpan(
+                      text: 'Aqui, um ranking de alunos é disponibilizado, mostrando os alunos que mais pontuaram na turma. A pontuação aumenta com o número de acertos nas atividades!',
+                    ),
+                  ],
                 ),
+              ),
+            ),
             Padding(padding: EdgeInsets.all(25)),
             Image.asset(
               "src/images/ranking_alunos.PNG",
-              width: size.width * .50,
-              height: size.height * .40,
+            width: size.width * .50,
+            height: size.height * .40,
             ),
             Padding(padding: EdgeInsets.all(20)),
             Text(
