@@ -150,13 +150,13 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
                 ),
               ),
             ),
-            Padding(padding: EdgeInsets.all(25)),
+            Padding(padding: EdgeInsets.all(15)),
             Image.asset(
               "src/images/ranking_alunos.PNG",
             width: size.width * .50,
             height: size.height * .40,
             ),
-            Padding(padding: EdgeInsets.all(10)),
+            Padding(padding: EdgeInsets.all(5)),
               TextButton(
                     child: Text('IR PARA A PÁGINA INICIAL'),
                     onPressed: () {
