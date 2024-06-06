@@ -310,12 +310,14 @@ class _SubTopicosPageState extends State<SubTopicosPage>
                                                   nextRoute: MaterialPageRoute(
                                                       builder: (context) =>
                                                           FinalLicaoPage(
+                                                            topicoAtual: widget.topicoAtual, // Add the required argument 'topicoAtual'
                                                               widget.topicoAtual[
                                                                   "idTopico"],
                                                               widget.topicoAtual[
                                                                   "id"])),
                                                 )
                                               : FinalLicaoPage(
+                                                  topicoAtual: widget.topicoAtual,
                                                   widget
                                                       .topicoAtual["idTopico"],
                                                   widget.topicoAtual["id"])));
@@ -324,6 +326,7 @@ class _SubTopicosPageState extends State<SubTopicosPage>
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => FinalLicaoPage(
+                                            topicoAtual: widget.topicoAtual, // Add the required argument 'topicoAtual'
                                               widget.topicoAtual["idTopico"],
                                               widget.topicoAtual["id"])));
                                 }

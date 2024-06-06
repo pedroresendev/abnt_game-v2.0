@@ -20,7 +20,7 @@ class _CarregaAtividadesPageState extends State<CarregaAtividadesPage> {
     super.initState();
     atividades = context
         .read<AtividadeController>()
-        .getAtividades(widget.idTopico, widget.idSubTopicos);
+        .getAtividades(widget.idTopico, widget.idSubTopicos); // Pega as atividades do tópico e sub-tópico.
   }
 
   @override
@@ -31,11 +31,11 @@ class _CarregaAtividadesPageState extends State<CarregaAtividadesPage> {
         builder: (context, snap) {
           if (snap.connectionState == ConnectionState.done &&
               context.read<AtividadeController>().atividadeAtual?.subTopico ==
-                  widget.idSubTopicos) {
+                  widget.idSubTopicos) { // Verifica se a conexão foi feita e se a atividade atual é igual ao sub-tópico.
             return AtividadePage(
                 context.watch<AtividadeController>().atividadeAtual!
-                  ..altenativas.shuffle());
-          } else if (snap.connectionState == ConnectionState.waiting) {
+                  ..altenativas.shuffle()); // Embaralha as alternativas.
+          } else if (snap.connectionState == ConnectionState.waiting) { // Se a conexão estiver esperando.
             return Scaffold(
               body: Center(
                 child: SizedBox(

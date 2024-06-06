@@ -3,7 +3,7 @@ import 'package:abntplaybic/shared/colors.dart';
 import 'package:flutter/material.dart';
 
 class FinalLicaoPage extends StatefulWidget {
-  const FinalLicaoPage(this.idTopico, this.idSubTopico, {super.key});
+  const FinalLicaoPage(this.idTopico, this.idSubTopico, {super.key, required Map topicoAtual});
   final String idTopico;
   final String idSubTopico;
   @override

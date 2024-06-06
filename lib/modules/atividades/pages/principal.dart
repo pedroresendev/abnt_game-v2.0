@@ -49,6 +49,8 @@ class _MainAtividadesPageState extends State<MainAtividadesPage> {
   Widget build(BuildContext context) {
     Perfil perfil = Provider.of<PerfilProvider>(context).perfilAtual!;
     Size size = MediaQuery.of(context).size;
+
+    bool feitoAula = false;
     return Scaffold(
       appBar: AppBar(
         shadowColor: Colors.transparent,
@@ -95,10 +97,12 @@ class _MainAtividadesPageState extends State<MainAtividadesPage> {
                           vertical: 20, horizontal: 10),
                       child: ListView.builder(
                         itemCount: listaSubTopicos.length, // Quantidade de subtópicos.
-                        itemBuilder: (context, index) { // Criação de cada subtópico.
+                        itemBuilder: (context, index) { 
+                          if (perfil is PerfilAluno) {
+                            feitoAula = perfil.feitos?[listaSubTopicos[index]["idTopico"]]?[listaSubTopicos[index]["id"]]?["aula"] ?? false;
+                          }// Criação de cada subtópico.
                           return InkWell(
                             onTap: () {
-                              bool feitoAula = false;
                               bool feitoTarefa = false;
                               if (perfil is PerfilAluno) { // Se o perfil for de aluno.
                                 if (perfil.turma != null) { // Se o aluno estiver em uma turma.
@@ -146,8 +150,8 @@ class _MainAtividadesPageState extends State<MainAtividadesPage> {
                                               child: AutoSizeText(
                                                 "Tarefa ${listaSubTopicos.elementAt(index)['nomeTema']} em ${widget.data["titulo"]!}", // Título da tarefa.
                                                 maxLines: 1,
-                                                style: const TextStyle(
-                                                  color: Colors.black,
+                                                style: TextStyle(
+                                                  color: feitoAula ? Colors.green : Colors.black, // Se a aula foi concluída, a cor é verde. Caso contrário, é preta.
                                                   fontFamily: "PassionOne",
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 20,
@@ -263,7 +267,7 @@ class _MainAtividadesPageState extends State<MainAtividadesPage> {
                                                 ),
                                                 onPressed: () async {
                                                   Navigator.pop(context);
-                                                  Navigator.push(
+                                                  bool aulaConcluida = await Navigator.push(
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) =>
@@ -271,7 +275,16 @@ class _MainAtividadesPageState extends State<MainAtividadesPage> {
                                                                 topicoAtual:
                                                                     listaSubTopicos[
                                                                         index],
-                                                              )));
+                                                              )
+                                                            )
+                                                          );
+                                                  if (aulaConcluida) { 
+                                                    setState(() {
+                                                      feitoAula = true;
+                                                    });
+                                                  }
+
+                                                  
                                                 },
                                               ),
                                             ),
@@ -283,21 +296,21 @@ class _MainAtividadesPageState extends State<MainAtividadesPage> {
                                   });
                             },
                             child: ListTile(
-                              title: Text(
-                                listaSubTopicos.elementAt(index)["nomeTema"],
-                                style: TextStyle(
-                                  fontFamily: "PassionOne",
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: perfil is PerfilAluno
-                                      ? perfil.turma?.topicosAtivos[
-                                                  widget.data["id"]!]![index] ??
-                                              true
-                                          ? Colors.black
-                                          : prata
-                                      : Colors.black,
-                                ),
+                            title: Text(
+                              listaSubTopicos.elementAt(index)["nomeTema"],
+                              style: TextStyle(
+                                fontFamily: "PassionOne",
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: feitoAula 
+                                    ? Colors.green 
+                                    : (perfil is PerfilAluno
+                                        ? perfil.turma?.topicosAtivos[widget.data["id"]!]![index] ?? true
+                                            ? Colors.black
+                                            : prata
+                                        : Colors.black),
                               ),
+                            ),
                               trailing: Icon(
                                 Icons.arrow_forward_ios,
                                 color: perfil is PerfilAluno
