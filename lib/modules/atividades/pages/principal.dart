@@ -309,6 +309,7 @@ class _MainAtividadesPageState extends State<MainAtividadesPage> {
                                             ? Colors.black
                                             : prata
                                         : Colors.black),
+                                decoration: feitoAula ? TextDecoration.lineThrough : null,
                               ),
                             ),
                               trailing: Icon(
