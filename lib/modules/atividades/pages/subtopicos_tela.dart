@@ -225,10 +225,11 @@ class _SubTopicosPageState extends State<SubTopicosPage>
                 bottom: 3,
                 left: 3,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(40, 10, 40, 0),
+                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 0), //Alterado para centralizar
                   child: SizedBox(
                     width: size.width,
                     height: size.height * 0.06,
+                    child: Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -342,6 +343,7 @@ class _SubTopicosPageState extends State<SubTopicosPage>
                           ),
                         ),
                       ],
+                    ),
                     ),
                   ),
                 ),

@@ -18,7 +18,7 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tutorial do Professor'),
+        title: Text('Tutorial do Professor'), centerTitle: true,
       ),
       body: PageView(
         controller: controller,
@@ -31,7 +31,7 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
                 padding: EdgeInsets.all(20),
                   child: Text(
                     'Seja bem vindo professor! Agora, você poderá criar as suas turmas virtuais e compartilhar com os seus alunos. Te ensinarei como fazer isso passo a passo!',
-                    style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
+                    style: TextStyle(fontFamily: "Montserrat", color: roxo, fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Container(
@@ -56,7 +56,7 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
                 padding: EdgeInsets.all(20), 
                  child: Text(
                     '''PASSO 1: Clique no ícone de tabela localizado na parte de baixo da tela.''',
-                    style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
+                    style: TextStyle(fontFamily: "Montserrat", color: roxo, fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Padding(padding: EdgeInsets.all(1)),
@@ -65,10 +65,10 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
                   width: size.width * .50,
                 ),
                 Container(
-                  padding: EdgeInsets.all(20),
+                  padding: EdgeInsets.fromLTRB(0, 30, 0 ,0),
                   child: Text(
                     'Ao clicar, você será redirecionado para a aba de turmas. Aperte em "Criar nova Turma"!',
-                    style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
+                    style: TextStyle(fontFamily: "Montserrat", color: roxo, fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Image.asset(
@@ -86,7 +86,7 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
                   padding: EdgeInsets.all(20),
                   child: Text(
                     'PASSO 3: Ao clicar, você será redirecionado para uma nova sessão. Nela, será possível colocar o nome da sua turma e também todos os conteúdos que queria deixar disponível.',
-                    style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
+                    style: TextStyle(fontFamily: "Montserrat", color: roxo, fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Image.asset(
@@ -105,7 +105,7 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
                 padding: EdgeInsets.all(20),
                 child: Text(
                   'Clique no ícone de tabela localizado na parte inferior da tela novamente.',
-                  style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
+                  style: TextStyle(fontFamily: "Montserrat", color: roxo, fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
             Padding(padding: EdgeInsets.all(10)),
@@ -116,7 +116,7 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
             Padding(padding: EdgeInsets.all(10)),
             Text(
               'Agora, a turma que você criou aparecerá. Clique nela!',
-              style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
+              style: TextStyle(fontFamily: "Montserrat", color: roxo, fontSize: 20, fontWeight: FontWeight.bold),
             ),
             Padding(padding: EdgeInsets.all(10)),
             Image.asset(
@@ -132,16 +132,16 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.all(20), // Adicione o valor do padding que você deseja aqui
+              padding: EdgeInsets.all(20),
               child: RichText(
                 text: TextSpan(
-                  style: TextStyle(fontFamily: "BebasNeue", color: roxo, fontSize: 20),
+                  style: TextStyle(fontFamily: "Montserrat", color: roxo, fontSize: 20, fontWeight: FontWeight.bold),
                   children: <TextSpan>[
                     TextSpan(
                       text: 'Agora, você será redirecionado para a aba da turma.',
                     ),
                     TextSpan(
-                      text: '\n\n', // Adiciona uma linha em branco entre os parágrafos
+                      text: '\n\n',
                     ),
                     TextSpan(
                       text: 'Aqui, um ranking de alunos é disponibilizado, mostrando os alunos que mais pontuaram na turma. A pontuação aumenta com o número de acertos nas atividades!',
@@ -157,15 +157,24 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
             height: size.height * .40,
             ),
             Padding(padding: EdgeInsets.all(5)),
-              TextButton(
-                    child: Text('IR PARA A PÁGINA INICIAL'),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => RedirectPage()),
-                      );
-                    },
-                  ),
+            ElevatedButton(
+              child: Text(
+                'IR PARA A PÁGINA INICIAL',
+                style: TextStyle(color: Colors.white),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green, // Cor de fundo
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0), // Botão retangular
+                ),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => RedirectPage()),
+                );
+              },
+            )
             ],
           ),
           ),
@@ -177,7 +186,7 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
           child: Padding(
             padding: EdgeInsets.all(20),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 FloatingActionButton(
                   onPressed: () => controller.previousPage(
