@@ -112,11 +112,11 @@ class _SubTopicosPageState extends State<SubTopicosPage>
                           return Column(
                             children: [
                               AppBar(
-                                toolbarHeight: 50,
+                                automaticallyImplyLeading: false,
+                                toolbarHeight: 70,
                                 centerTitle: true,
                                 backgroundColor: Colors.transparent,
                                 elevation: 0,
-                                leading: null,
                                 title: Text(
                                   listaTemas
                                       .elementAt(index)
@@ -124,10 +124,12 @@ class _SubTopicosPageState extends State<SubTopicosPage>
                                       .toUpperCase(),
                                   style: const TextStyle(
                                       fontFamily: "PassionOne",
-                                      fontSize: 36,
+                                      fontSize: 28,
                                       fontWeight: FontWeight.bold,
                                       color: preto),
                                   textAlign: TextAlign.center,
+                                  softWrap: true,
+                                  overflow: TextOverflow.visible,
                                 ),
                               ),
                               Expanded(
