@@ -11,6 +11,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 import '../../perfil/controller/perfilProvider.dart';
 
@@ -57,9 +58,10 @@ class _SubTopicosPageState extends State<SubTopicosPage>
   getTopicos() async {
     listaTemas = await _topicosController.getAllAulasSubTopicos(
         widget.topicoAtual["idTopico"], widget.topicoAtual["id"]);
+
     for (var item in listaTemas) {
       if (item.conteudo.toString().startsWith("gs:")) {
-        getImage(item.conteudo);
+        await getImage(item.conteudo);
       } else {
         images.add(null);
       }
@@ -84,9 +86,35 @@ class _SubTopicosPageState extends State<SubTopicosPage>
     }
   }
 
-  Future<void> getImage(String url) async {
-    images.add(FirebaseStorage.instance.refFromURL(url).getDownloadURL());
+  String sanitizeUrl(String url) {
+    return url.replaceAll(" ", "%20");
   }
+
+Future<bool> isImageUrlValid(String url) async {
+  try {
+    final response = await http.head(Uri.parse(url));
+    return response.statusCode == 200;
+  } catch (e) {
+    print("Erro ao validar a URL da imagem: $e");
+    return false;
+  }
+}
+
+Future<void> getImage(String url) async {
+  try {
+    String downloadUrl = await FirebaseStorage.instance.refFromURL(url).getDownloadURL();
+    bool isValid = await isImageUrlValid(downloadUrl);
+
+    if (isValid) {
+      images.add(Future.value(downloadUrl));
+    } else {
+      images.add(Future.error("URL inválida ou inacessível"));
+    }
+  } catch (e) {
+    images.add(Future.error("Erro ao obter imagem: $e"));
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -142,15 +170,46 @@ class _SubTopicosPageState extends State<SubTopicosPage>
                                       ? FutureBuilder<String>(
                                           future: images[index],
                                           builder: (context, snap) {
+                                            print("SNAP DATA: ");
                                             print(snap.data);
-                                            if (snap.hasData) {
+                                            if (snap.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                        color: primary),
+                                              );
+                                            } else if (snap.hasError) {
+                                            print("Erro no FutureBuilder: ${snap.error}");
+                                              return Center(
+                                                child: Text(
+                                                  "Erro ao carregar imagem",
+                                                  style: TextStyle(
+                                                      color: Colors.red),
+                                                ),
+                                              );
+                                            } else if (snap.hasData) {
+                                            print("URL da imagem: ${snap.data}");
                                               return Container(
-                                                  constraints:
-                                                      const BoxConstraints(
-                                                          maxWidth: 550),
-                                                  width: size.width * 0.75,
-                                                  child: Image.network(
-                                                      snap.data!));
+                                                constraints:
+                                                    const BoxConstraints(
+                                                        maxWidth: 550),
+                                                width: size.width * 0.75,
+                                                child: Image.network(
+                                                  snap.data!,
+                                                  errorBuilder: (context, error,
+                                                          stackTrace) {
+                                                     print("Erro ao carregar imagem: $error");
+                                                    return Center(
+                                                    child: Text(
+                                                      "Erro ao exibir imagem.",
+                                                      style: TextStyle(
+                                                          color: Colors.red),
+                                                    ),
+                                                  );
+                                                }
+                                                ),
+                                              );
                                             } else {
                                               return Center(
                                                 child: SizedBox(
@@ -227,125 +286,147 @@ class _SubTopicosPageState extends State<SubTopicosPage>
                 bottom: 3,
                 left: 3,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 0), //Alterado para centralizar
+                  padding: const EdgeInsets.fromLTRB(
+                      0, 10, 0, 0), //Alterado para centralizar
                   child: SizedBox(
                     width: size.width,
                     height: size.height * 0.06,
                     child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: IconButton(
-                            onPressed: () {
-                              if (selectedIndex + 1 > 1) {
-                                _pageController.animateToPage(selectedIndex - 1,
-                                    duration: const Duration(milliseconds: 500),
-                                    curve: Curves.ease);
-                                setState(() {
-                                  _tabController!.index = selectedIndex;
-                                });
-                              }
-                            },
-                            icon: Icon(
-                              Icons.chevron_left,
-                              size: chevronSize,
-                              color: selectedIndex + 1 > 1
-                                  ? primary
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: IconButton(
+                              onPressed: () {
+                                if (selectedIndex + 1 > 1) {
+                                  _pageController.animateToPage(
+                                      selectedIndex - 1,
+                                      duration:
+                                          const Duration(milliseconds: 500),
+                                      curve: Curves.ease);
+                                  setState(() {
+                                    _tabController!.index = selectedIndex;
+                                  });
+                                }
+                              },
+                              icon: Icon(
+                                Icons.chevron_left,
+                                size: chevronSize,
+                                color: selectedIndex + 1 > 1
+                                    ? primary
+                                    : Colors.transparent,
+                              ),
+                              splashColor: selectedIndex + 1 > 1
+                                  ? null
+                                  : Colors.transparent,
+                              highlightColor: selectedIndex + 1 > 1
+                                  ? null
                                   : Colors.transparent,
                             ),
-                            splashColor: selectedIndex + 1 > 1
-                                ? null
-                                : Colors.transparent,
-                            highlightColor: selectedIndex + 1 > 1
-                                ? null
-                                : Colors.transparent,
                           ),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Center(
-                            child: TabPageSelector(
-                              controller: _tabController,
-                              color: lilas,
-                              selectedColor: roxo,
-                              borderStyle: BorderStyle.none,
-                              indicatorSize: indicatorSize,
+                          Expanded(
+                            flex: 2,
+                            child: Center(
+                              child: TabPageSelector(
+                                controller: _tabController,
+                                color: lilas,
+                                selectedColor: roxo,
+                                borderStyle: BorderStyle.none,
+                                indicatorSize: indicatorSize,
+                              ),
                             ),
                           ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: IconButton(
-                            onPressed: () {
-                              if (selectedIndex + 1 < _tabController!.length) {
-                                _pageController.animateToPage(selectedIndex + 1,
-                                    duration: const Duration(milliseconds: 500),
-                                    curve: Curves.ease);
-                                setState(() {
-                                  _tabController!.index = selectedIndex;
-                                });
-                              } else {
-                                var perfil =
-                                    context.read<PerfilProvider>().perfilAtual;
-                                var ganhaXP = true;
-                                if (perfil is PerfilAluno) {
-                                  perfil.marcaAula(
-                                      widget.topicoAtual["idTopico"],
-                                      widget.topicoAtual["id"]);
-                                  bool aulaFeita = perfil.feitos?[widget
-                                                  .topicoAtual["idTopico"]]
-                                              ?[widget.topicoAtual["id"]]
-                                          ?["aula"] ??
-                                      false;
-                                  if (aulaFeita) {
-                                    ganhaXP = false;
-                                  }
-                                  Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                          builder: (context) => ganhaXP
-                                              ? GanhaXP(
-                                                  xpGanho: 5,
-                                                  porCompletar:
-                                                      "mais uma aula!",
-                                                  nextRoute: MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          FinalLicaoPage(
-                                                            topicoAtual: widget.topicoAtual, // Add the required argument 'topicoAtual'
-                                                              widget.topicoAtual[
-                                                                  "idTopico"],
-                                                              widget.topicoAtual[
-                                                                  "id"])),
-                                                )
-                                              : FinalLicaoPage(
-                                                  topicoAtual: widget.topicoAtual,
-                                                  widget
-                                                      .topicoAtual["idTopico"],
-                                                  widget.topicoAtual["id"])));
+                          Expanded(
+                            flex: 1,
+                            child: IconButton(
+                              onPressed: () {
+                                if (selectedIndex + 1 <
+                                    _tabController!.length) {
+                                  _pageController.animateToPage(
+                                      selectedIndex + 1,
+                                      duration:
+                                          const Duration(milliseconds: 500),
+                                      curve: Curves.ease);
+                                  setState(() {
+                                    _tabController!.index = selectedIndex;
+                                  });
                                 } else {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => FinalLicaoPage(
-                                            topicoAtual: widget.topicoAtual, // Add the required argument 'topicoAtual'
-                                              widget.topicoAtual["idTopico"],
-                                              widget.topicoAtual["id"])));
+                                  var perfil = context
+                                      .read<PerfilProvider>()
+                                      .perfilAtual;
+                                  var ganhaXP = true;
+                                  if (perfil is PerfilAluno) {
+                                    perfil.marcaAula(
+                                        widget.topicoAtual["idTopico"],
+                                        widget.topicoAtual["id"]);
+                                    bool aulaFeita = perfil.feitos?[widget
+                                                    .topicoAtual["idTopico"]]
+                                                ?[widget.topicoAtual["id"]]
+                                            ?["aula"] ??
+                                        false;
+                                    if (aulaFeita) {
+                                      ganhaXP = false;
+                                    }
+                                    Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                            builder: (context) => ganhaXP
+                                                ? GanhaXP(
+                                                    xpGanho: 5,
+                                                    porCompletar:
+                                                        "mais uma aula!",
+                                                    nextRoute:
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                FinalLicaoPage(
+                                                                    topicoAtual:
+                                                                        widget
+                                                                            .topicoAtual, // Add the required argument 'topicoAtual'
+                                                                    widget.topicoAtual[
+                                                                        "idTopico"],
+                                                                    widget.topicoAtual[
+                                                                        "id"])),
+                                                  )
+                                                : FinalLicaoPage(
+                                                    topicoAtual:
+                                                        widget.topicoAtual,
+                                                    widget.topicoAtual[
+                                                        "idTopico"],
+                                                    widget.topicoAtual["id"])));
+                                  } else {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                FinalLicaoPage(
+                                                    topicoAtual: widget
+                                                        .topicoAtual, // Add the required argument 'topicoAtual'
+                                                    widget.topicoAtual[
+                                                        "idTopico"],
+                                                    widget.topicoAtual["id"])));
+                                  }
                                 }
-                              }
-                            },
-                            icon: Icon(
-                              selectedIndex + 1 < _tabController!.length ? Icons.chevron_right : Icons.check,
-                              size: chevronSize,
-                              color: primary,
+                              },
+                              icon: Icon(
+                                selectedIndex + 1 < _tabController!.length
+                                    ? Icons.chevron_right
+                                    : Icons.check,
+                                size: chevronSize,
+                                color: primary,
+                              ),
+                              splashColor:
+                                  selectedIndex + 1 < _tabController!.length
+                                      ? null
+                                      : Colors.transparent,
+                              highlightColor:
+                                  selectedIndex + 1 < _tabController!.length
+                                      ? null
+                                      : Colors.transparent,
                             ),
-                            splashColor: selectedIndex + 1 < _tabController!.length ? null : Colors.transparent,
-                            highlightColor: selectedIndex + 1 < _tabController!.length ? null : Colors.transparent,
                           ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
