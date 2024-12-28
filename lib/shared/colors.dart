@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+const roxoclaro = const Color.fromARGB(255, 29, 28, 28);
 const roxo = Color(0xff400135);
 const primary = Color(0xff4F294F);
 const branco = Color(0xfffafafa);

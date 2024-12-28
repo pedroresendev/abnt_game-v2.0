@@ -12,6 +12,19 @@ class EscolherBonus extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 29, 28, 28),
+      appBar: AppBar(
+        automaticallyImplyLeading: false, // Remove a seta para voltar
+        centerTitle: true, // Centraliza o título
+        title: const Text(
+          'DESAFIO BÔNUS',
+          style: TextStyle(
+            color: Colors.amber, // Cor dourada
+            fontWeight: FontWeight.bold, // Negrito
+          ),
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -54,33 +67,36 @@ class EscolherBonus extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Container(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.black, width: 2),
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.black, width: 2),
+              ),
+              child: Column(children: [
+                Text(
+                  "- Tenho um desafio para você! Vou dizer uma sentença sobre o conteúdo desse tópico e, se você acertar, poderá receber um bônus de XP!",
+                  style: TextStyle(color: Colors.black, fontSize: 18),
+                  textAlign: TextAlign.center,
                 ),
-                child: Column(
-                children: [
-                  Text(
-                    "- Tenho um desafio para você! Vou dizer uma sentença sobre o conteúdo desse tópico e, se você acertar, poderá receber um bônus de XP!",
-                    style: TextStyle(color: Colors.black, fontSize: 18),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    "Se recusar, você ainda receberá o XP adquirido na atividade.",
-                    style: TextStyle(color: Colors.red, fontSize: 16, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                ]),),
+                SizedBox(height: 5),
+                Text(
+                  "Se recusar, você ainda receberá o XP adquirido na atividade.",
+                  style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+              ]),
+            ),
             SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 ElevatedButton(
                   onPressed: () {
-                      Navigator.push(
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => QuestaoBonus(

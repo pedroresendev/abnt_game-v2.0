@@ -34,23 +34,24 @@ class _BotaoInicioState extends State<BotaoInicio> {
                   : alertaApp(
                       context, "Seu professor não liberou essa atividade"),
               style: ElevatedButton.styleFrom(
-                backgroundColor: widget.desbloqueado ? lilas : prata, // Cinza para bloqueado e roxo para desbloqueado.
+                backgroundColor: widget.desbloqueado ? const Color.fromARGB(255, 122, 13, 122) : prata, // Cinza para bloqueado e roxo para desbloqueado.
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
+                shadowColor: Colors.black, // Cor da sombra
+                elevation: 10,
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  SizedBox(height: 10), // Espaço no topo
+                  Image.asset('src/images/livro.png', width: 80, height: 80),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 18),
                     child: Text(
                       widget.data["titulo"]!,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                          fontFamily: "PassionOne",
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center, 
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ],

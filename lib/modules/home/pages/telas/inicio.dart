@@ -107,7 +107,7 @@ class _InicioPageState extends State<InicioPage> {
           title: const Text(
             "ABNT Play",
             style:
-                TextStyle(fontFamily: "Righteous", color: roxo, fontSize: 40),
+                TextStyle(fontFamily: "Righteous", color: Color.fromARGB(255, 170, 37, 148), fontSize: 40),
           ),
         ),
         body: !loading && listaTopicos.isNotEmpty // Verifica se os dados estão carregados e se a lista de tópicos não está vazia.
