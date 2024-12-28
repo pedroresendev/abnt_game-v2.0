@@ -47,6 +47,7 @@ class _AtividadePageState extends State<AtividadePage> {
                             ),
                         ),
                         Column(children: [
+                          // Itera sobre a lista de alternativas do widget.atividade e cria um widget AlternativaAtividade para cada alternativa
                           ...widget.atividade.altenativas
                               .map(
                                 (e) => AlternativaAtividade(e),
@@ -55,6 +56,7 @@ class _AtividadePageState extends State<AtividadePage> {
                         ])
                       ],
                     )
+                    // Se a condição anterior não for satisfeita, retorna um SizedBox com altura igual à altura do tamanho fornecido
                   : SizedBox(
                       height: size.height,
                       child: Row(

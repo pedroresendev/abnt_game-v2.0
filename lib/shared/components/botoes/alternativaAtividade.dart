@@ -1,4 +1,5 @@
 import 'package:abntplaybic/modules/atividades/controller/atividadeController.dart';
+import 'package:abntplaybic/modules/atividades/pages/EscolherBonus.dart';
 import 'package:abntplaybic/modules/atividades/model/atividade.dart';
 import 'package:abntplaybic/modules/atividades/pages/ganhaXP.dart';
 import 'package:abntplaybic/modules/perfil/controller/perfilProvider.dart';
@@ -121,7 +122,8 @@ class AlternativaAtividade extends StatelessWidget {
                                                   .limpar();
                                         Navigator.of(context).pushReplacement(
                                           MaterialPageRoute(
-                                            builder: (context) => GanhaXP(
+                                            builder: (context) => EscolherBonus(
+                                            // builder: (context) => GanhaXP(
                                               xpGanho: xpGanho,
                                               porCompletar: "mais uma tarefa",
                                             ),
