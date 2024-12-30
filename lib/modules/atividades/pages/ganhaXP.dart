@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:abntplaybic/modules/perfil/controller/perfilProvider.dart';
 import 'package:abntplaybic/modules/perfil/models/perfilAluno.dart';
 import 'package:abntplaybic/shared/colors.dart';
-import 'package:abntplaybic/shared/components/normas/back_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -76,13 +75,25 @@ class _GanhaXPState extends State<GanhaXP> {
                 "Por completar ${widget.porCompletar}",
                 style: const TextStyle(fontFamily: "Righteous", fontSize: 25),
               ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.purple, // Cor de fundo roxa
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(0), // Retangular
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                ),
+                child: const Text(
+                  'Voltar à Tela Inicial',
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
+              ),
             ],
           ),
         ),
-        Positioned(
-            top: 5,
-            left: 5,
-            child: widget.nextRoute == null ? BackButtonNormas() : Container())
       ],
     ));
   }

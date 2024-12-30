@@ -5,8 +5,13 @@ import 'package:flutter/material.dart';
 class EscolherBonus extends StatelessWidget {
   final int xpGanho;
   final String porCompletar;
+  final String subTopico; // Adiciona o parâmetro subTopico
 
-  EscolherBonus({required this.xpGanho, required this.porCompletar});
+  EscolherBonus({
+    required this.xpGanho,
+    required this.porCompletar,
+    required this.subTopico, // Adiciona o parâmetro subTopico
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +80,7 @@ class EscolherBonus extends StatelessWidget {
               ),
               child: Column(children: [
                 Text(
-                  "- Tenho um desafio para você! Vou dizer uma sentença sobre o conteúdo desse tópico e, se você acertar, poderá receber um bônus de XP!",
+                  "- Tenho um desafio para você! Vou dizer uma sentença sobre o conteúdo $subTopico e, se você acertar, poderá receber um bônus de XP!",
                   style: TextStyle(color: Colors.black, fontSize: 18),
                   textAlign: TextAlign.center,
                 ),
@@ -100,7 +105,7 @@ class EscolherBonus extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => QuestaoBonus(
-                                xpGanho: xpGanho, porCompletar: porCompletar)));
+                                xpGanho: xpGanho, porCompletar: porCompletar, subTopico: subTopico)));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,

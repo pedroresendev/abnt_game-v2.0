@@ -31,26 +31,26 @@ environment:
 dependencies:
   auto_size_text: ^3.0.0
   bot_toast: ^4.0.3
-  cloud_firestore: ^4.3.1
+  cloud_firestore: ^5.6.0
   cupertino_icons: ^1.0.2
-  dots_indicator: ^2.0.0	
-  firebase_auth: ^4.2.5
-  firebase_core: ^2.4.1
-  firebase_storage: ^11.0.10
+  dots_indicator: ^3.0.0	
+  firebase_auth: ^5.3.4
+  firebase_core: ^3.9.0
+  firebase_storage: ^12.3.7
   flutter:
     sdk: flutter
-  image_picker: ^0.8.6+1
+  image_picker: ^1.1.2
   im_stepper: ^1.0.1+1
-  material_design_icons_flutter: ^6.0.7096
+  material_design_icons_flutter: ^7.0.7296
   percent_indicator: ^4.2.2
   provider: ^6.0.5
   shared_preferences: ^2.0.17
-  flutter_markdown: ^0.6.16
+  flutter_markdown: ^0.7.4+3
   http: ^1.2.2
   audioplayers: ^6.1.0
 
 dev_dependencies:
-  flutter_lints: ^2.0.0
+  flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
 

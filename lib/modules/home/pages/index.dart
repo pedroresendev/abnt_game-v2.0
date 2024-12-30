@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
+  static List<Widget> _widgetOptions = <Widget>[
     InicioPage(),
     ClassificacaoPage(),
     ConquistasPage(),
@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
               // Redireciona para a página TutorialProfessorPage
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => EscolherBonus(xpGanho: 100, porCompletar: "mais uma tarefa",)),
+                MaterialPageRoute(builder: (context) => EscolherBonus(xpGanho: 100, porCompletar: "mais uma tarefa", subTopico: "aaa",)),
               );
             },
             icon: Icon(Icons.chair,
@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                 duration: const Duration(milliseconds: 500),
                 curve: Curves.ease);
           },
-          items: const [
+          items: [
             BottomNavigationBarItem(
                 activeIcon: Icon(
                   MdiIcons.home,

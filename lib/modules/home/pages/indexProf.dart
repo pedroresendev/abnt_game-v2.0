@@ -66,7 +66,7 @@ class _HomePageProfState extends State<HomePageProf> {
                 duration: const Duration(milliseconds: 500),
                 curve: Curves.ease);
           },
-          items: const [
+          items: [
             BottomNavigationBarItem(
                 activeIcon: Icon(
                   MdiIcons.home,
