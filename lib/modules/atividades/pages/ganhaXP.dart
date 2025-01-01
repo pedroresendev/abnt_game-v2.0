@@ -75,21 +75,22 @@ class _GanhaXPState extends State<GanhaXP> {
                 "Por completar ${widget.porCompletar}",
                 style: const TextStyle(fontFamily: "Righteous", fontSize: 25),
               ),
-              SizedBox(height: 25),
+              SizedBox(height: 50),
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).popUntil((route) => route.isFirst);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.purple, // Cor de fundo roxa
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(1), // Retangular
-                  ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      side: BorderSide(color: Colors.black, width: 1),
+                    ),
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 ),
                 child: const Text(
                   'Voltar à Tela Inicial',
-                  style: TextStyle(fontSize: 20, color: Colors.white),
+                  style: TextStyle(fontSize: 28, fontFamily: "Righteous", color: Colors.white),
                 ),
               ),
             ],

@@ -16,15 +16,17 @@ class EscolherBonus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 29, 28, 28),
+      // backgroundColor: const Color.fromARGB(255, 29, 28, 28),
       appBar: AppBar(
         automaticallyImplyLeading: false, // Remove a seta para voltar
         centerTitle: true, // Centraliza o título
         title: const Text(
           'DESAFIO BÔNUS',
           style: TextStyle(
-            color: Colors.amber, // Cor dourada
-            fontWeight: FontWeight.bold, // Negrito
+            color: Colors.purple, // Cor dourada
+            fontWeight: FontWeight.bold, 
+            fontFamily: "Righteous",
+            fontSize: 32// Negrito
           ),
         ),
         backgroundColor: Colors.transparent,
@@ -43,7 +45,7 @@ class EscolherBonus extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ),
                   TextSpan(
@@ -51,15 +53,15 @@ class EscolherBonus extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: Colors.amber,
+                      color: Colors.purple,
                     ),
                   ),
                   TextSpan(
-                    text: ' apareceu!!!',
+                    text: ' apareceu!',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ),
                 ],
@@ -79,20 +81,34 @@ class EscolherBonus extends StatelessWidget {
                 border: Border.all(color: Colors.black, width: 2),
               ),
               child: Column(children: [
-                Text(
-                  "- Tenho um desafio para você! Vou dizer uma sentença sobre o conteúdo $subTopico e, se você acertar, poderá receber um bônus de XP!",
-                  style: TextStyle(color: Colors.black, fontSize: 18),
-                  textAlign: TextAlign.center,
+              RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: "- Tenho um desafio para você! Vou dizer uma sentença sobre o conteúdo ",
+                    style: TextStyle(
+                      fontSize: 20
+                    )
+                  ),
+                  TextSpan(
+                    text: subTopico,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.purple,
+                    ),
+                  ),
+                  TextSpan(
+                    text: " e, se você acertar, eu irei dobrar a sua XP!",
+                    style: TextStyle(
+                      fontSize: 20
+                    )
+                  )
+                ]
+                )
                 ),
                 SizedBox(height: 5),
-                Text(
-                  "Se recusar, você ainda receberá o XP adquirido na atividade.",
-                  style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
               ]),
             ),
             SizedBox(height: 20),
@@ -112,6 +128,7 @@ class EscolherBonus extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
+                      side: BorderSide(color: Colors.black, width: 1),
                     ),
                   ),
                   child: Text(
@@ -126,13 +143,14 @@ class EscolherBonus extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => GanhaXP(
-                                xpGanho: xpGanho, porCompletar: "porCompletar")));
+                                xpGanho: xpGanho, porCompletar: porCompletar)));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
+                      side: BorderSide(color: Colors.black, width: 1),
                     ),
                   ),
                   child: Text(
@@ -140,8 +158,18 @@ class EscolherBonus extends StatelessWidget {
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
                 ),
+
               ],
             ),
+            SizedBox(height: 10),
+            Text(
+                  "Obs.: Se recusar, você receberá o XP adquirido na atividade normalmente.",
+                  style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
           ],
         ),
       ),
