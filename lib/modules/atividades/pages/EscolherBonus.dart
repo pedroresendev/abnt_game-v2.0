@@ -126,7 +126,7 @@ class EscolherBonus extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => GanhaXP(
-                                xpGanho: xpGanho, porCompletar: porCompletar)));
+                                xpGanho: xpGanho, porCompletar: "porCompletar")));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,

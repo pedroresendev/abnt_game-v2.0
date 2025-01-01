@@ -41,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
                     constraints: const BoxConstraints(maxWidth: 200),
                     width: size.width * 0.5,
                     child: Image.asset(
-                      "src/images/coruja_prof.png",
+                      "src/images/coruja_mago.png",
                     ),
                   ),
                   const Text(

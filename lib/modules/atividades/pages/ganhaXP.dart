@@ -75,6 +75,7 @@ class _GanhaXPState extends State<GanhaXP> {
                 "Por completar ${widget.porCompletar}",
                 style: const TextStyle(fontFamily: "Righteous", fontSize: 25),
               ),
+              SizedBox(height: 25),
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).popUntil((route) => route.isFirst);
@@ -82,7 +83,7 @@ class _GanhaXPState extends State<GanhaXP> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.purple, // Cor de fundo roxa
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(0), // Retangular
+                    borderRadius: BorderRadius.circular(1), // Retangular
                   ),
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 ),
