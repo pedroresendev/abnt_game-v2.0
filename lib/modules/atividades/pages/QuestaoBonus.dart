@@ -7,8 +7,7 @@ import 'package:audioplayers/audioplayers.dart';
 class QuestaoBonus extends StatefulWidget {
   final int xpGanho;
   final String porCompletar;
-  final String subTopico; // Adiciona o parâmetro subTopico
-
+  final String subTopico; 
   const QuestaoBonus(
       {super.key,
       required this.xpGanho,
@@ -26,8 +25,7 @@ class _QuestaoBonusState extends State<QuestaoBonus> {
 
   Future<void> _playAudioFromFirebase() async {
     try {
-      // Substitua 'path/to/audio/file.mp3' pelo caminho do seu arquivo de áudio no Firebase Storage
-      String audioPath = '/atividades/indice/classificacao/audio_teste.mp3';
+            String audioPath = '/atividades/indice/classificacao/audio_teste.mp3';
       print(audioPath);
       String audioUrl =
           await FirebaseStorage.instance.ref(audioPath).getDownloadURL();
@@ -37,8 +35,7 @@ class _QuestaoBonusState extends State<QuestaoBonus> {
     }
   }
 
-  // Função para buscar a variável resposta do Firebase
-  Future<bool> getResposta(String subTopico) async {
+    Future<bool> getResposta(String subTopico) async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .doc('/topicos/indice/subTopicos/classificacao/bonus/res')
         .get();
@@ -48,18 +45,13 @@ class _QuestaoBonusState extends State<QuestaoBonus> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: const Color.fromARGB(255, 29, 28, 28),
-      appBar: AppBar(
-        automaticallyImplyLeading: false, // Remove a seta para voltar
-        centerTitle: true, // Centraliza o título
-        title: const Text(
+            appBar: AppBar(
+        automaticallyImplyLeading: false,         centerTitle: true,         title: const Text(
           'DESAFIO BÔNUS',
           style: TextStyle(
-              color: Colors.purple, // Cor dourada
-              fontWeight: FontWeight.bold,
+              color: Colors.purple,               fontWeight: FontWeight.bold,
               fontFamily: "Righteous",
-              fontSize: 32 // Negrito
-              ),
+              fontSize: 32               ),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -102,9 +94,7 @@ class _QuestaoBonusState extends State<QuestaoBonus> {
             ),
             const SizedBox(height: 20),
             Wrap(
-              spacing: 10, // Espaço horizontal entre os botões
-              runSpacing: 10, // Espaço vertical entre os botões
-              alignment: WrapAlignment.center,
+              spacing: 10,               runSpacing: 10,               alignment: WrapAlignment.center,
               children: [
                 ElevatedButton(
                   onPressed: () async {

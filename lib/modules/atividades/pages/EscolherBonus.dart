@@ -5,29 +5,22 @@ import 'package:flutter/material.dart';
 class EscolherBonus extends StatelessWidget {
   final int xpGanho;
   final String porCompletar;
-  final String subTopico; // Adiciona o parâmetro subTopico
-
+  final String subTopico; 
   EscolherBonus({
     required this.xpGanho,
     required this.porCompletar,
-    required this.subTopico, // Adiciona o parâmetro subTopico
-  });
+    required this.subTopico,   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: const Color.fromARGB(255, 29, 28, 28),
-      appBar: AppBar(
-        automaticallyImplyLeading: false, // Remove a seta para voltar
-        centerTitle: true, // Centraliza o título
-        title: const Text(
+            appBar: AppBar(
+        automaticallyImplyLeading: false,         centerTitle: true,         title: const Text(
           'DESAFIO BÔNUS',
           style: TextStyle(
-            color: Colors.purple, // Cor dourada
-            fontWeight: FontWeight.bold, 
-            fontFamily: "Righteous",
-            fontSize: 32// Negrito
-          ),
+              color: Colors.purple,               fontWeight: FontWeight.bold,
+              fontFamily: "Righteous",
+              fontSize: 32               ),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -73,43 +66,38 @@ class EscolherBonus extends StatelessWidget {
                   width: 300, height: 300),
             ),
             SizedBox(height: 20),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.black, width: 2),
-              ),
-              child: Column(children: [
-              RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: "- Tenho um desafio para você! Vou dizer uma sentença sobre o conteúdo ",
-                    style: TextStyle(
-                      fontSize: 20
-                    )
-                  ),
-                  TextSpan(
-                    text: subTopico,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.purple,
-                    ),
-                  ),
-                  TextSpan(
-                    text: " e, se você acertar, eu irei dobrar a sua XP!",
-                    style: TextStyle(
-                      fontSize: 20
-                    )
-                  )
-                ]
-                )
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: 20.0),               child: Container(
+               padding: EdgeInsets.all(15.0), 
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.black, width: 2),
                 ),
-                SizedBox(height: 5),
-              ]),
+                child: Column(children: [
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(children: [
+                      TextSpan(
+                          text:
+                              "- Tenho um desafio para você! Vou dizer uma sentença sobre o conteúdo ",
+                          style: TextStyle(fontSize: 20)),
+                      TextSpan(
+                        text: subTopico,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.purple,
+                        ),
+                      ),
+                      TextSpan(
+                          text: " e, se você acertar, eu irei dobrar a sua XP!",
+                          style: TextStyle(fontSize: 20))
+                    ]),
+                  ),
+                ]),
+              ),
             ),
             SizedBox(height: 20),
             Row(
@@ -121,7 +109,9 @@ class EscolherBonus extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => QuestaoBonus(
-                                xpGanho: xpGanho, porCompletar: porCompletar, subTopico: subTopico)));
+                                xpGanho: xpGanho,
+                                porCompletar: porCompletar,
+                                subTopico: subTopico)));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
@@ -158,18 +148,22 @@ class EscolherBonus extends StatelessWidget {
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
                 ),
-
               ],
             ),
             SizedBox(height: 10),
             Text(
-                  "Obs.: Se recusar, você receberá o XP adquirido na atividade normalmente.",
-                  style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
+              "Obs.: Se recusar, você receberá o XP adquirido na atividade normalmente.",
+              style: TextStyle(
+                  color: Colors.red, fontSize: 16, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 10),
+            Text(
+              "Recomenda-se o uso de fones de ouvido. Apenas aceite a atividade se você puder escutar algo com o seu dispositivo.",
+              style: TextStyle(
+                  color: Colors.deepPurple, fontSize: 16, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
           ],
         ),
       ),

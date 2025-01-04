@@ -287,8 +287,7 @@ Future<void> getImage(String url) async {
                 left: 3,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(
-                      0, 10, 0, 0), //Alterado para centralizar
-                  child: SizedBox(
+                      0, 10, 0, 0),                   child: SizedBox(
                     width: size.width,
                     height: size.height * 0.06,
                     child: Center(
@@ -382,8 +381,7 @@ Future<void> getImage(String url) async {
                                                                 FinalLicaoPage(
                                                                     topicoAtual:
                                                                         widget
-                                                                            .topicoAtual, // Add the required argument 'topicoAtual'
-                                                                    widget.topicoAtual[
+                                                                            .topicoAtual,                                                                     widget.topicoAtual[
                                                                         "idTopico"],
                                                                     widget.topicoAtual[
                                                                         "id"])),
@@ -401,8 +399,7 @@ Future<void> getImage(String url) async {
                                             builder: (context) =>
                                                 FinalLicaoPage(
                                                     topicoAtual: widget
-                                                        .topicoAtual, // Add the required argument 'topicoAtual'
-                                                    widget.topicoAtual[
+                                                        .topicoAtual,                                                     widget.topicoAtual[
                                                         "idTopico"],
                                                     widget.topicoAtual["id"])));
                                   }

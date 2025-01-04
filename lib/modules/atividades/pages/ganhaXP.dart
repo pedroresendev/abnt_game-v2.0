@@ -42,11 +42,7 @@ class _GanhaXPState extends State<GanhaXP> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-        // appBar: AppBar(
-        //     backgroundColor: Colors.transparent,
-        //     elevation: 0,
-        //     leading: const BackButtonNormas()),
-        body: Stack(
+                                        body: Stack(
       children: [
         SizedBox(
           width: size.width,
@@ -81,8 +77,7 @@ class _GanhaXPState extends State<GanhaXP> {
                   Navigator.of(context).popUntil((route) => route.isFirst);
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.purple, // Cor de fundo roxa
-                    shape: RoundedRectangleBorder(
+                  backgroundColor: Colors.purple,                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                       side: BorderSide(color: Colors.black, width: 1),
                     ),
