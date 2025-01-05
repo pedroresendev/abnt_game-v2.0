@@ -39,7 +39,7 @@ class _AtividadePageState extends State<AtividadePage> {
                               data: titulo,
                               styleSheet: MarkdownStyleSheet(
                                 p: TextStyle(fontFamily: "PassionOne", fontSize: 25),
-                                h1: TextStyle(fontSize: 18),
+                                h1: TextStyle(fontSize: 22),
                                 h1Align: WrapAlignment.start,
                                 strong: TextStyle(fontWeight: FontWeight.bold),
                                 textAlign: WrapAlignment.center

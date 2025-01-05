@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/redirectPage.dart';
-import '../../../../shared/colors.dart';
 
 class TutorialProfessorPage extends StatefulWidget {
   const TutorialProfessorPage({super.key});
@@ -26,7 +25,6 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
                 centerTitle: true,
