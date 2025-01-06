@@ -208,7 +208,7 @@ class _TutorialProfessorPageState extends State<TutorialProfessorPage> {
                     ),
                     child: Column(children: [
                       Text(
-                        '- Agora, a turma que você criou aparecerá. Clique nela!',
+                        '- Agora, a turma que você criou aparecerá. O código da turma será exibido ao lado direito do nome da turma. Clique na turma!',
                         style: TextStyle(
                           fontSize: 20,
                         ),
