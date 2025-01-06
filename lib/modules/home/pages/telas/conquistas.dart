@@ -65,9 +65,7 @@ class _ConquistasPageState extends State<ConquistasPage> {
         title: const Text(
           "ABNT Play",
           style: TextStyle(
-            fontFamily: "Righteous",
-            color: roxo,
-            fontSize: 40,
+            fontFamily: "Righteous", color: Color.fromARGB(255, 170, 37, 148), fontSize: 40
           ),
         ),
       ),

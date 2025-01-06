@@ -81,19 +81,19 @@ class EscolherBonus extends StatelessWidget {
                     text: TextSpan(children: [
                       TextSpan(
                           text:
-                              "- Tenho um desafio para você! Vou dizer uma sentença sobre o conteúdo ",
+                              "- Tenho um desafio para você! Vou dizer uma sentença sobre o conteúdo dessa aula",
                           style: TextStyle(fontSize: 20)),
                       TextSpan(
-                        text: subTopico,
+                          text: " e, se você acertar, eu irei",
+                          style: TextStyle(fontSize: 20)),
+                      TextSpan(
+                        text: ' dobrar a sua XP!',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Colors.purple,
                         ),
                       ),
-                      TextSpan(
-                          text: " e, se você acertar, eu irei dobrar a sua XP!",
-                          style: TextStyle(fontSize: 20))
                     ]),
                   ),
                 ]),
@@ -159,7 +159,7 @@ class EscolherBonus extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              "Recomenda-se o uso de fones de ouvido. Apenas aceite a atividade se você puder escutar algo com o seu dispositivo.",
+              "Apenas aceite a atividade se você puder escutar sons no seu dispositivo.",
               style: TextStyle(
                   color: Colors.deepPurple, fontSize: 16, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,

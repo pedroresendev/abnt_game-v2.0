@@ -27,7 +27,7 @@ class _InformacaoPageState extends State<InformacaoPage> {
         ),
         title: const Text(
           "ABNT Play",
-          style: TextStyle(fontFamily: "Righteous", color: roxo, fontSize: 40),
+          style: TextStyle(fontFamily: "Righteous", color: Color.fromARGB(255, 170, 37, 148), fontSize: 40),
         ),
         centerTitle: true,
       ),
