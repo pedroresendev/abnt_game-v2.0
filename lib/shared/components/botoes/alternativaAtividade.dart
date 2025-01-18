@@ -1,4 +1,6 @@
 import 'package:abntplaybic/modules/atividades/controller/atividadeController.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:abntplaybic/modules/atividades/pages/ganhaXP.dart';
 import 'package:abntplaybic/modules/atividades/pages/EscolherBonus.dart';
 import 'package:abntplaybic/modules/atividades/model/atividade.dart';
 import 'package:abntplaybic/modules/perfil/controller/perfilProvider.dart';
@@ -12,6 +14,14 @@ class AlternativaAtividade extends StatelessWidget {
   final Alternativa alternativa;
 
   const AlternativaAtividade(this.alternativa, {super.key});
+
+  
+  Future<DocumentSnapshot> getExisteBonus(String subTopico, String topico) async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .doc('/topicos/$topico/subTopicos/$subTopico/bonus/audio')
+        .get();
+    return snapshot;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +89,7 @@ class AlternativaAtividade extends StatelessWidget {
                                               BorderRadius.circular(13)),
                                       fixedSize: Size(size.width * 0.75, 69),
                                     ),
-                                    onPressed: () {
+                                    onPressed: () async {
                                       Navigator.pop(context);
                                       var val = controller.proximaAtividade();
                                       bool atvFeita = false;
@@ -119,16 +129,32 @@ class AlternativaAtividade extends StatelessWidget {
                                         context
                                                   .read<AtividadeController>()
                                                   .limpar();
+                                      context.read<AtividadeController>().limpar();
+
+                                      DocumentSnapshot bonusSnapshot = await getExisteBonus(
+                                      controller.atividadeAtual!.subTopico, controller.atividadeAtual!.topico);
+
+                                      if (bonusSnapshot.exists) {
                                         Navigator.of(context).pushReplacement(
                                           MaterialPageRoute(
                                             builder: (context) => EscolherBonus(
-                                            // builder: (context) => GanhaXP(
                                               xpGanho: xpGanho,
                                               porCompletar: "mais uma tarefa",
-                                              subTopico: controller.atividadeAtual!.subTopico, 
+                                              topico: controller.atividadeAtual!.topico,
+                                              subTopico: controller.atividadeAtual!.subTopico,
                                             ),
                                           ),
                                         );
+                                      } else {
+                                        Navigator.of(context).pushReplacement(
+                                          MaterialPageRoute(
+                                            builder: (context) => GanhaXP(
+                                              xpGanho: xpGanho,
+                                              porCompletar: "mais uma tarefa",
+                                            ),
+                                          ),
+                                        );
+                                      }
                                       }
                                     },
                                     child: const Text(

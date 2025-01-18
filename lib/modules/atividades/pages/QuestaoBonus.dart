@@ -7,12 +7,16 @@ import 'package:audioplayers/audioplayers.dart';
 class QuestaoBonus extends StatefulWidget {
   final int xpGanho;
   final String porCompletar;
-  final String subTopico; 
-  const QuestaoBonus(
-      {super.key,
-      required this.xpGanho,
-      required this.porCompletar,
-      required this.subTopico});
+  final String topico;
+  final String subTopico;
+
+  const QuestaoBonus({
+    super.key,
+    required this.xpGanho,
+    required this.porCompletar,
+    required this.topico,
+    required this.subTopico,
+  });
 
   @override
   State<QuestaoBonus> createState() => _QuestaoBonusState();
@@ -25,33 +29,48 @@ class _QuestaoBonusState extends State<QuestaoBonus> {
 
   Future<void> _playAudioFromFirebase() async {
     try {
-            String audioPath = '/atividades/indice/classificacao/audio_teste.mp3';
-      print(audioPath);
-      String audioUrl =
-          await FirebaseStorage.instance.ref(audioPath).getDownloadURL();
-      await _audioPlayer.play(UrlSource(audioUrl));
+      String topico = widget.topico;
+      String subTopico = widget.subTopico;
+
+      print("/topicos/$topico/subTopicos/$subTopico/bonus/audio");
+
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .doc('/topicos/$topico/subTopicos/$subTopico/bonus/audio')
+          .get();
+
+      if (snapshot.exists) {
+        String audioPath = snapshot['som'] as String;
+        print(audioPath);
+        String audioUrl = await FirebaseStorage.instance.ref(audioPath).getDownloadURL();
+        await _audioPlayer.play(UrlSource(audioUrl));
+      } else {
+        print('Documento não encontrado.');
+      }
     } catch (e) {
       print('Erro ao tocar o áudio: $e');
     }
   }
 
-    Future<bool> getResposta(String subTopico) async {
+  Future<bool> getResposta(String subTopico, String topico) async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
-        .doc('/topicos/indice/subTopicos/classificacao/bonus/res')
+        .doc('/topicos/$topico/subTopicos/$subTopico/bonus/audio')
         .get();
-    return snapshot['resposta'] as bool;
+    return snapshot['res'] as bool;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-            appBar: AppBar(
-        automaticallyImplyLeading: false,         centerTitle: true,         title: const Text(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        title: const Text(
           'DESAFIO BÔNUS',
           style: TextStyle(
-              color: Colors.purple,               fontWeight: FontWeight.bold,
+              color: Colors.purple,
+              fontWeight: FontWeight.bold,
               fontFamily: "Righteous",
-              fontSize: 32               ),
+              fontSize: 32),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -94,11 +113,14 @@ class _QuestaoBonusState extends State<QuestaoBonus> {
             ),
             const SizedBox(height: 20),
             Wrap(
-              spacing: 10,               runSpacing: 10,               alignment: WrapAlignment.center,
+              spacing: 10,
+              runSpacing: 10,
+              alignment: WrapAlignment.center,
               children: [
                 ElevatedButton(
                   onPressed: () async {
-                    bool respostaFirebase = await getResposta(widget.subTopico);
+                    bool respostaFirebase = await getResposta(widget.subTopico, widget.topico);
+                    print("A resposta firebase é $respostaFirebase");
                     if (respostaFirebase == true) {
                       showModalBottomSheet(
                         enableDrag: false,
@@ -118,44 +140,51 @@ class _QuestaoBonusState extends State<QuestaoBonus> {
                                 Text(
                                   'Resposta correta!',
                                   style: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.green
-                                  ),
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.green),
                                 ),
                                 SizedBox(height: 10),
                                 Text(
                                   'Você acertou a questão bônus! Muito bem!',
-                                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(height: 20),
                                 SizedBox(
-                                width: double.infinity, 
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    int xpGanhoDobrado = widget.xpGanho * 2;
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => GanhaXP(
-                                          xpGanho: xpGanhoDobrado,
-                                          porCompletar:
-                                              "mais uma atividade e acertar a questão bônus!",
+                                  width: double.infinity,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      int xpGanhoDobrado = widget.xpGanho + 3;
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => GanhaXP(
+                                            xpGanho: xpGanhoDobrado,
+                                            porCompletar:
+                                                "mais uma atividade e acertar a questão bônus!",
+                                          ),
                                         ),
+                                      );
+                                    },
+                                    child: Text(
+                                      'Continuar',
+                                      style: TextStyle(
+                                          fontSize: 24, color: Colors.white),
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.purple,
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 30, vertical: 15),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        side: BorderSide(
+                                            color: Colors.black, width: 1),
                                       ),
-                                    );
-                                  },
-                                  child: Text('Continuar', style: TextStyle(fontSize: 24, color: Colors.white), ),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.purple,
-                                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      side: BorderSide(color: Colors.black, width: 1),
                                     ),
                                   ),
-                                ),
                                 ),
                               ],
                             ),
@@ -181,42 +210,48 @@ class _QuestaoBonusState extends State<QuestaoBonus> {
                                 Text(
                                   'Resposta incorreta',
                                   style: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.red
-                                  ),
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.red),
                                 ),
                                 SizedBox(height: 10),
                                 Text(
                                   'Você errou a questão bônus! Que pena...',
-                                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(height: 20),
                                 SizedBox(
-                                width: double.infinity, 
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => GanhaXP(
-                                          xpGanho: widget.xpGanho,
-                                          porCompletar:
-                                              "mais uma atividade",
+                                  width: double.infinity,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => GanhaXP(
+                                            xpGanho: widget.xpGanho,
+                                            porCompletar: "mais uma atividade",
+                                          ),
                                         ),
+                                      );
+                                    },
+                                    child: Text(
+                                      'Continuar',
+                                      style: TextStyle(
+                                          fontSize: 24, color: Colors.white),
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.purple,
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 30, vertical: 15),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        side: BorderSide(
+                                            color: Colors.black, width: 1),
                                       ),
-                                    );
-                                  },
-                                  child: Text('Continuar', style: TextStyle(fontSize: 24, color: Colors.white), ),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.purple,
-                                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      side: BorderSide(color: Colors.black, width: 1),
                                     ),
                                   ),
-                                ),
                                 ),
                               ],
                             ),
@@ -240,7 +275,7 @@ class _QuestaoBonusState extends State<QuestaoBonus> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    bool respostaFirebase = await getResposta(widget.subTopico);
+                    bool respostaFirebase = await getResposta(widget.subTopico, widget.topico);
                     if (respostaFirebase == false) {
                       showModalBottomSheet(
                         enableDrag: false,
@@ -260,44 +295,51 @@ class _QuestaoBonusState extends State<QuestaoBonus> {
                                 Text(
                                   'Resposta correta!',
                                   style: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.green
-                                  ),
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.green),
                                 ),
                                 SizedBox(height: 10),
                                 Text(
                                   'Você acertou a questão bônus! Muito bem!',
-                                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(height: 20),
                                 SizedBox(
-                                width: double.infinity, 
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    int xpGanhoDobrado = widget.xpGanho * 2;
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => GanhaXP(
-                                          xpGanho: xpGanhoDobrado,
-                                          porCompletar:
-                                              "mais uma atividade e acertar a questão bônus!",
+                                  width: double.infinity,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      int xpGanhoDobrado = widget.xpGanho + 3;
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => GanhaXP(
+                                            xpGanho: xpGanhoDobrado,
+                                            porCompletar:
+                                                "mais uma atividade e acertar a questão bônus!",
+                                          ),
                                         ),
+                                      );
+                                    },
+                                    child: Text(
+                                      'Continuar',
+                                      style: TextStyle(
+                                          fontSize: 24, color: Colors.white),
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.purple,
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 30, vertical: 15),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        side: BorderSide(
+                                            color: Colors.black, width: 1),
                                       ),
-                                    );
-                                  },
-                                  child: Text('Continuar', style: TextStyle(fontSize: 24, color: Colors.white), ),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.purple,
-                                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      side: BorderSide(color: Colors.black, width: 1),
                                     ),
                                   ),
-                                ),
                                 ),
                               ],
                             ),
@@ -323,42 +365,48 @@ class _QuestaoBonusState extends State<QuestaoBonus> {
                                 Text(
                                   'Resposta incorreta',
                                   style: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.red
-                                  ),
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.red),
                                 ),
                                 SizedBox(height: 10),
                                 Text(
                                   'Você errou a questão bônus! Que pena...',
-                                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(height: 20),
                                 SizedBox(
-                                width: double.infinity, 
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => GanhaXP(
-                                          xpGanho: widget.xpGanho,
-                                          porCompletar:
-                                              "mais uma atividade",
+                                  width: double.infinity,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => GanhaXP(
+                                            xpGanho: widget.xpGanho,
+                                            porCompletar: "mais uma atividade",
+                                          ),
                                         ),
+                                      );
+                                    },
+                                    child: Text(
+                                      'Continuar',
+                                      style: TextStyle(
+                                          fontSize: 24, color: Colors.white),
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.purple,
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 30, vertical: 15),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        side: BorderSide(
+                                            color: Colors.black, width: 1),
                                       ),
-                                    );
-                                  },
-                                  child: Text('Continuar', style: TextStyle(fontSize: 24, color: Colors.white), ),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.purple,
-                                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      side: BorderSide(color: Colors.black, width: 1),
                                     ),
                                   ),
-                                ),
                                 ),
                               ],
                             ),

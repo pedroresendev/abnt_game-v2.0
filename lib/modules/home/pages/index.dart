@@ -2,7 +2,6 @@ import 'package:abntplaybic/modules/home/pages/telas/classificacao.dart';
 import 'package:abntplaybic/modules/home/pages/telas/conquistas.dart';
 import 'package:abntplaybic/modules/home/pages/telas/inicio.dart';
 import 'package:abntplaybic/modules/home/pages/telas/perfil_page.dart';
-import 'package:abntplaybic/modules/atividades/pages/EscolherBonus.dart';
 import 'package:abntplaybic/shared/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -41,21 +40,6 @@ class _HomePageState extends State<HomePage> {
           onPageChanged: _onItemTapped,
           scrollDirection: Axis.horizontal,
           children: _widgetOptions,
-        ),
-        Positioned(
-          top: 10.0, // Posição do botão
-          right: 10.0, // Posição do botão
-          child: IconButton(
-            onPressed: () {
-              // Redireciona para a página TutorialProfessorPage
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => EscolherBonus(xpGanho: 100, porCompletar: "mais uma tarefa", subTopico: "aaa",)),
-              );
-            },
-            icon: Icon(Icons.chair,
-                color: Colors.green), // Ícone para o botão de tutorial
-          ),
         ),
       ]),
       bottomNavigationBar: BottomNavigationBar(

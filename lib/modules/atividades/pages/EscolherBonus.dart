@@ -5,22 +5,28 @@ import 'package:flutter/material.dart';
 class EscolherBonus extends StatelessWidget {
   final int xpGanho;
   final String porCompletar;
-  final String subTopico; 
+  final String topico;
+  final String subTopico;
   EscolherBonus({
     required this.xpGanho,
     required this.porCompletar,
-    required this.subTopico,   });
+    required this.topico,
+    required this.subTopico,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-            appBar: AppBar(
-        automaticallyImplyLeading: false,         centerTitle: true,         title: const Text(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        title: const Text(
           'DESAFIO BÔNUS',
           style: TextStyle(
-              color: Colors.purple,               fontWeight: FontWeight.bold,
+              color: Colors.purple,
+              fontWeight: FontWeight.bold,
               fontFamily: "Righteous",
-              fontSize: 32               ),
+              fontSize: 32),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -67,9 +73,9 @@ class EscolherBonus extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: 20.0),               child: Container(
-               padding: EdgeInsets.all(15.0), 
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: Container(
+                padding: EdgeInsets.all(15.0),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
@@ -87,7 +93,7 @@ class EscolherBonus extends StatelessWidget {
                           text: " e, se você acertar, eu irei",
                           style: TextStyle(fontSize: 20)),
                       TextSpan(
-                        text: ' dobrar a sua XP!',
+                        text: ' aumentar a sua XP!',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -111,6 +117,7 @@ class EscolherBonus extends StatelessWidget {
                             builder: (context) => QuestaoBonus(
                                 xpGanho: xpGanho,
                                 porCompletar: porCompletar,
+                                topico: topico,
                                 subTopico: subTopico)));
                   },
                   style: ElevatedButton.styleFrom(
@@ -161,7 +168,9 @@ class EscolherBonus extends StatelessWidget {
             Text(
               "Apenas aceite a atividade se você puder escutar sons no seu dispositivo.",
               style: TextStyle(
-                  color: Colors.deepPurple, fontSize: 16, fontWeight: FontWeight.bold),
+                  color: Colors.deepPurple,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ],
